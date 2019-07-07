@@ -1,0 +1,17 @@
+name: "SpotifyIntegration"
+author: "Twasi Team"
+version: "1.0"
+main: net.twasidependency.socialmedia.spotify.SpotifyDependency
+dependency: true
+api: |
+
+
+  type SpotifyIntegration {
+    account: SpotifyAccount,
+    authenticate(token: String): SpotifyAccount
+  }
+
+  type SpotifyAccount {
+    userName: String,
+    premium: Boolean
+  }
