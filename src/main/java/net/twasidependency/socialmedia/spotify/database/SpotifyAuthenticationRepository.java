@@ -13,10 +13,10 @@ public class SpotifyAuthenticationRepository extends Repository<SpotifyAuthentic
         }
     }
 
-    public SpotifyAuthenticationEntity authenticate(User user, String token) {
+    public SpotifyAuthenticationEntity authenticate(User user, String token, String refreshToken) {
         SpotifyAuthenticationEntity entity = getAuthenticationByUser(user);
         if (entity == null) {
-            add(entity = new SpotifyAuthenticationEntity(user, token));
+            add(entity = new SpotifyAuthenticationEntity(user, token, refreshToken));
         } else {
             entity.setToken(token);
             commit(entity);

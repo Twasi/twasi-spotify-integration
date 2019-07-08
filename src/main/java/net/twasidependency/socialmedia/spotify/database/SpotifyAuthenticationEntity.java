@@ -11,9 +11,12 @@ public class SpotifyAuthenticationEntity extends BaseEntity {
 
     private String token;
 
-    public SpotifyAuthenticationEntity(User user, String token) {
+    private String refreshToken;
+
+    public SpotifyAuthenticationEntity(User user, String token, String refreshToken) {
         this.user = user;
         this.token = token;
+        this.refreshToken = refreshToken;
     }
 
     public SpotifyAuthenticationEntity() {
@@ -29,5 +32,9 @@ public class SpotifyAuthenticationEntity extends BaseEntity {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 }

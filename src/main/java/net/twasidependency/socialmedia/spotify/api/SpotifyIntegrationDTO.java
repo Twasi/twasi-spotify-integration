@@ -4,6 +4,7 @@ import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.enums.ProductType;
 import net.twasi.core.database.models.User;
 import net.twasi.core.services.providers.DataService;
+import net.twasi.core.services.providers.config.ConfigService;
 import net.twasidependency.socialmedia.spotify.SpotifyDependency;
 import net.twasidependency.socialmedia.spotify.database.SpotifyAuthenticationRepository;
 
@@ -27,15 +28,11 @@ public class SpotifyIntegrationDTO {
         }
     }
 
-    public SpotifyAccountDTO authenticate(String token) {
-        try {
-            SpotifyApi client = SpotifyDependency.service.getClientBuilder().setAccessToken(token).build();
-            com.wrapper.spotify.model_objects.specification.User user = client.getCurrentUsersProfile().build().execute();
-            SpotifyAccountDTO acc = new SpotifyAccountDTO(user.getDisplayName(), user.getProduct() == ProductType.PREMIUM);
-            repo.authenticate(this.user, token);
-            return acc;
-        } catch (Exception e) {
-            return null;
-        }
+    public String getAuthenticationUri() {
+        return ConfigService.get().getCatalog().webinterface.self + "/oauth/spotify";
+    }
+
+    public void logout() {
+        // TODO add logout logic
     }
 }

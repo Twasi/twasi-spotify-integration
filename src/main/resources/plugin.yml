@@ -5,10 +5,9 @@ main: net.twasidependency.socialmedia.spotify.SpotifyDependency
 dependency: true
 api: |
 
-
   type SpotifyIntegration {
     account: SpotifyAccount,
-    authenticate(token: String): SpotifyAccount
+    authenticationUri: String
   }
 
   type SpotifyAccount {
