@@ -12,6 +12,7 @@ public class SpotifyAPIConfiguration {
                 "user-read-playback-state",
                 "user-read-recently-played",
                 "user-read-currently-playing",
+                "user-read-private",
                 "streaming",
                 "user-modify-playback-state",
                 "playlist-modify-private",
