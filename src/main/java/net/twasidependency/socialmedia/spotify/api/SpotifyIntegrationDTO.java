@@ -8,6 +8,8 @@ import net.twasi.core.services.providers.config.ConfigService;
 import net.twasidependency.socialmedia.spotify.SpotifyDependency;
 import net.twasidependency.socialmedia.spotify.database.SpotifyAuthenticationRepository;
 
+import static net.twasidependency.socialmedia.spotify.SpotifyDependency.service;
+
 public class SpotifyIntegrationDTO {
 
     private final User user;
@@ -20,8 +22,8 @@ public class SpotifyIntegrationDTO {
 
     public SpotifyAccountDTO getAccount() {
         try {
-            SpotifyApi client = SpotifyDependency.service.getAuthorizedClient(user);
-            com.wrapper.spotify.model_objects.specification.User user = client.getCurrentUsersProfile().build().execute();
+            SpotifyApi client = service.getAuthorizedClient(user);
+            com.wrapper.spotify.model_objects.specification.User user = service.execute(client.getCurrentUsersProfile().build(), client);
             return new SpotifyAccountDTO(user.getDisplayName(), user.getProduct() == ProductType.PREMIUM);
         } catch (Exception e) {
             return null;

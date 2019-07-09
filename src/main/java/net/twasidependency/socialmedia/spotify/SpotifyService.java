@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static net.twasidependency.socialmedia.spotify.SpotifyDependency.config;
+import static org.bouncycastle.crypto.tls.ConnectionEnd.client;
 
 public class SpotifyService implements IService {
 
@@ -54,11 +55,11 @@ public class SpotifyService implements IService {
         }
     }
 
-    public <T extends AbstractModelObject> T execute(AbstractRequest request, SpotifyApi client, Class<T> responseType) {
-        return execute(request, client, responseType, true);
+    public <T extends AbstractModelObject> T execute(AbstractRequest request, SpotifyApi client) {
+        return execute(request, client, true);
     }
 
-    private <T extends AbstractModelObject> T execute(AbstractRequest request, SpotifyApi client, Class<T> responseType, boolean firstTry) {
+    private <T extends AbstractModelObject> T execute(AbstractRequest request, SpotifyApi client, boolean firstTry) {
         if (this.rateLimitReset.getTime() > Calendar.getInstance().getTimeInMillis()) return null;
         try {
             return request.execute();
@@ -69,7 +70,7 @@ public class SpotifyService implements IService {
             if (firstTry) {
                 try {
                     client.authorizationCodeRefresh().build().execute();
-                    execute(request, client, responseType, false);
+                    execute(request, client, false);
                 } catch (IOException | SpotifyWebApiException ex) {
                     ex.printStackTrace();
                 }
