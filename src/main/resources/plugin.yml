@@ -7,10 +7,12 @@ api: |
 
   type SpotifyIntegration {
     account: SpotifyAccount,
-    authenticationUri: String
+    authenticationUri: String,
+
   }
 
   type SpotifyAccount {
     userName: String,
     premium: Boolean
+    logout: Boolean
   }

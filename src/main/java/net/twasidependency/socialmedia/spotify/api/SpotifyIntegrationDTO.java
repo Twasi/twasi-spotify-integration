@@ -24,7 +24,7 @@ public class SpotifyIntegrationDTO {
         try {
             SpotifyApi client = service.getAuthorizedClient(user);
             com.wrapper.spotify.model_objects.specification.User user = service.execute(client.getCurrentUsersProfile().build(), client);
-            return new SpotifyAccountDTO(user.getDisplayName(), user.getProduct() == ProductType.PREMIUM);
+            return new SpotifyAccountDTO(user.getDisplayName(), user.getProduct() == ProductType.PREMIUM, repo, this.user);
         } catch (Exception e) {
             return null;
         }
@@ -32,9 +32,5 @@ public class SpotifyIntegrationDTO {
 
     public String getAuthenticationUri() {
         return ConfigService.get().getCatalog().webinterface.self + "/oauth/spotify";
-    }
-
-    public void logout() {
-        // TODO add logout logic
     }
 }

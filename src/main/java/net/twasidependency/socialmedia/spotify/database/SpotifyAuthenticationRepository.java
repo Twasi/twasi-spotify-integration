@@ -24,4 +24,10 @@ public class SpotifyAuthenticationRepository extends Repository<SpotifyAuthentic
         return entity;
     }
 
+    public void unAuthententicate(User user) {
+        try {
+            store.delete(getAuthenticationByUser(user));
+        } catch (Exception e) {
+        }
+    }
 }
